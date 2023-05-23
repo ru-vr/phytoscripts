@@ -7,10 +7,10 @@ app = Flask(__name__)
 #app.config['SECRET_KEY'] = os.environ.get('APP_SECRET_KEY')
 
 def get_db_connection():
-    #connection = psycopg2.connect(host=os.environ['DB_HOST'], database=os.environ['DB_NAME'], user=os.environ['DB_USER'],
-     #                             password=os.environ['DB_PASSWORD'])
-    connection = psycopg2.connect(host='localhost', database='diplomky', user='postgres',
-                                      password='loooll')
+    connection = psycopg2.connect(host=os.environ['DB_HOST'], database=os.environ['DB_NAME'], user=os.environ['DB_USER'],
+                                  password=os.environ['DB_PASSWORD'])
+    # connection = psycopg2.connect(host='localhost', database='diplomky', user='postgres',
+    #                                 password='loooll')
     return connection
 
 @app.route('/')
