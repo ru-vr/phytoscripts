@@ -54,7 +54,12 @@
         if (document.getElementById('kontrolBtn').value == "Další") {
             poradi++;
             document.getElementById('cisloOtazky').innerHTML = "Otázka č. " + (poradi+1);
-            document.getElementById('obr1').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/1.jpg";
+            var obr1Path = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/1.jpg"
+            fetch(obr1Path)
+                .catch(e => {
+                    obr1Path = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/1.JPG" ;
+                });
+            document.getElementById('obr1').src = obr1Path;
             document.getElementById('obr2').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/2.jpg";
             document.getElementById('obr3').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/3.jpg";
             document.getElementById('result1').innerHTML = "";
