@@ -58,6 +58,7 @@
             fetch(obr1Path)
                 .catch(e => {
                     obr1Path = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/1.JPG" ;
+                    document.getElementById('obr1').src = obr1Path;
                 });
             document.getElementById('obr1').src = obr1Path;
             document.getElementById('obr2').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/2.jpg";
