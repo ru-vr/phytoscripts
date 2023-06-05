@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Cvičný test z praktické části zkoušky z Farmaceutické botaniky {% endblock %}</h1>
+
+    <div style="padding-left: 60px">
+        <p><strong>! UPOZORNĚNÍ !</strong></p>
+        <p>Jedná se o neoficiální materiál, který slouží pouze jako učební pomůcka a v žádném případě nenahrazuje
+        doporučené studijní zdroje. Žádný z členů katedry KFGFB neručí za správnost a aktuálnost tohoto materiálu. Pro
+            nejaktuálnější vyhlášky a seznamy prosím sledujte sekci <a href="https://intranet.faf.cuni.cz/Studijni-materialy/KFGFB/"
+            target="_blank"> studijních materiálů katedry na webu FAF</a>. Tento cvičný test vychází z <a href="static/seznam_taxonu.pdf"
+            target="_blank">tohoto seznamu</a>, jež by měl být aktuální i pro rok 2023.
+        </p>
+        <p id='cisloOtazky'>Otázka č. 1</p>
+        <div class="img-container">
+        <img src="" id="obr1">
+        <img src="" id="obr2">
+        <img src="" id="obr3">
+        </div>
+
+        <br>
+        <input type="button" style="cursor: pointer;" value="Zvětšit" onclick="zvetsitIMG()">
+        <input type="button" style="cursor: pointer;" value="Zmenšit" onclick="zmensitIMG()">
+        <br>
+        <p id="vypisBodu" style="font-weight: bold">Tvoje body: 0/60</p>
+        Latinský název: <input type="text" id="odpoved_1" name="odpoved_1"> <span id="result1"></span> <br><br>
+        Český název:  <input type="text" id="odpoved_2" name="odpoved_2"> <span id="result2"></span> <br><br>
+        Čeleď latinsky: <input type="text" id="odpoved_3" name="odpoved_3"> <span id="result3"></span> <br><br>
+        Čeleď česky: <input type="text" id="odpoved_4" name="odpoved_4"> <span id="result4"></span> <br>
+        <p id="trestnyText"></p>
+        <input type="button" style="cursor: pointer;" onclick="zkontrolujOdpoved()" value="Zkontrolovat" id="kontrolBtn">
+        <input type="button" style="cursor: pointer; display: none;" onclick="window.location.reload()" value="Nový test" id="novyTestBtn">
+
+    </div>
+<script type="text/javascript">
+    var imgVelikost = 350;
+    var poradi = 0;
+    var body = 0;
+    var vybraneRostliny = {{ vyber | tojson | safe }};
+
+    function zvetsitIMG() {
+        imgVelikost = String(imgVelikost*1.2);
+        document.getElementById('obr1').style.height = imgVelikost + 'px';
+        document.getElementById('obr2').style.height = imgVelikost + 'px';
+        document.getElementById('obr3').style.height = imgVelikost + 'px';
+    }
+    function zmensitIMG() {
+        imgVelikost = String(imgVelikost/1.2);
+        document.getElementById('obr1').style.height = imgVelikost + 'px';
+        document.getElementById('obr2').style.height = imgVelikost + 'px';
+        document.getElementById('obr3').style.height = imgVelikost + 'px';
+    }
+    function zkontrolujOdpoved() {
+        if (document.getElementById('kontrolBtn').value == "Další") {
+            poradi++;
+            document.getElementById('cisloOtazky').innerHTML = "Otázka č. " + (poradi+1);
+            document.getElementById('obr1').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/1.jpg";
+            document.getElementById('obr2').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/2.jpg";
+            document.getElementById('obr3').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/3.jpg";
+            document.getElementById('result1').innerHTML = "";
+            document.getElementById('result2').innerHTML = "";
+            document.getElementById('result3').innerHTML = "";
+            document.getElementById('result4').innerHTML = "";
+            document.getElementById('odpoved_1').value = "";
+            document.getElementById('odpoved_2').value = "";
+            document.getElementById('odpoved_3').value = "";
+            document.getElementById('odpoved_4').value = "";
+            document.getElementById('trestnyText').innerHTML = "";
+            document.getElementById('kontrolBtn').value = "Zkontrolovat";
+        } else {
+            let odpoved_1 = document.getElementById('odpoved_1').value.trim().toLowerCase();
+            var druhRodLatOdpv = odpoved_1.split(" ");
+            var rodLatOdpv = druhRodLatOdpv[0];
+            var druhLatOdpv = druhRodLatOdpv[1];
+            let latinsky_druh_spravne = vybraneRostliny[poradi][1].trim();
+            var druhRodLat = latinsky_druh_spravne.split(" ");
+            var rodLat = druhRodLat[0].toLowerCase();
+            var druhLat = druhRodLat[1];
+            if (rodLatOdpv == rodLat && druhLatOdpv == druhLat) {
+                document.getElementById('result1').innerHTML = "Uhodl jsi";
+                body = body + 1;
+            } else if (rodLatOdpv == rodLat && druhLatOdpv != druhLat) {
+                document.getElementById('result1').innerHTML = "Špatný druhový název, správně to má být: " + latinsky_druh_spravne;
+                body = body + 0.5;
+            } else if (rodLatOdpv != rodLat && druhLatOdpv == druhLat) {
+                document.getElementById('result1').innerHTML = "Špatný rodový název, správně to má být: " + latinsky_druh_spravne;
+                body = body + 0.5;
+            } else {
+                document.getElementById('result1').innerHTML = "Špatně, správně to má být: " + latinsky_druh_spravne;
+            }
+
+            let odpoved_2 = bezDiakr(document.getElementById('odpoved_2').value.trim().toLowerCase());
+            var odpoved_2_split = odpoved_2.split(" ");
+            var odpvRod = odpoved_2_split[0];
+            var odpvDruh = odpoved_2_split[1];
+            let cesky_druh_spravne = vybraneRostliny[poradi][2].trim().toLowerCase();
+            let spravne_split = cesky_druh_spravne.split(" ");
+            var spravneRod = bezDiakr(spravne_split[0]);
+            var spravneDruh = bezDiakr(spravne_split[1]);
+            if (odpvRod == spravneRod && odpvDruh == spravneDruh) {
+                document.getElementById('result2').innerHTML = "Uhodl jsi";
+                body++;
+            } else if (odpvRod == spravneRod && odpvDruh != spravneDruh) {
+                document.getElementById('result2').innerHTML = "Špatný druhový název, správně to má být: " + cesky_druh_spravne;
+                body = body + 0.5;
+            } else if (odpvRod != spravneRod && odpvDruh == spravneDruh) {
+                document.getElementById('result2').innerHTML = "Špatný rodový název, správně to má být: " + cesky_druh_spravne;
+                body = body + 0.5;
+            } else {
+                document.getElementById('result2').innerHTML = "Špatně, správně to má být: " + cesky_druh_spravne;
+            }
+            let odpoved_3 = document.getElementById('odpoved_3').value;
+            let latinsky_celed_spravne = vybraneRostliny[poradi][3].trim();
+            if (odpoved_3.trim().toLowerCase() == latinsky_celed_spravne.toLowerCase()) {
+                document.getElementById('result3').innerHTML = "Uhodl jsi";
+                body = body + 0.5;
+            } else {
+                document.getElementById('result3').innerHTML = "Špatně, správně to má být: " + latinsky_celed_spravne;
+            }
+            let odpoved_4 = document.getElementById('odpoved_4').value;
+            let cesky_celed_spravne = vybraneRostliny[poradi][4].trim();
+            if (bezDiakr(odpoved_4.trim().toLowerCase()) == bezDiakr(cesky_celed_spravne.toLowerCase())) {
+                document.getElementById('result4').innerHTML = "Uhodl jsi";
+                body = body + 0.5;
+            } else {
+                document.getElementById('result4').innerHTML = "Špatně, správně to má být: " + cesky_celed_spravne;
+            }
+            var lekopisna = vybraneRostliny[poradi][5];
+            if (lekopisna != null) {
+                if (document.getElementById('result4').innerHTML != "Uhodl jsi" ||
+                    document.getElementById('result3').innerHTML != "Uhodl jsi" ||
+                    document.getElementById('result2').innerHTML != "Uhodl jsi" ||
+                    document.getElementById('result1').innerHTML != "Uhodl jsi") {
+                    document.getElementById('trestnyText').innerHTML = "Rostlina je lékopisná, její neznalost je za 1 trestný bod!";
+                    body = body - 1;
+                }
+            }
+            document.getElementById('vypisBodu').innerHTML = "Tvoje body: " + body + "/45";
+            if (poradi == 14) {
+                document.getElementById('kontrolBtn').value = "Konec testu";
+                document.getElementById('kontrolBtn').disabled = true;
+                document.getElementById('novyTestBtn').style.display = "inline";
+                if (body >= 27) {
+                    document.getElementById('vypisBodu').innerHTML = "Tvoje body: " + body + "/45 - Minimální hranice úspěšnosti 60% splněna, gratuluji!";
+                } else {
+                    document.getElementById('vypisBodu').innerHTML = "Tvoje body: " + body + "/45 - Nedostatečné body pro splnění minimální hranice úspěšnosti 60 %, je potřeba se to ještě naučit!";
+                }
+
+            } else {
+                document.getElementById('kontrolBtn').value = "Další";
+            }
+        }
+    }
+    function bezDiakr(retezec) {
+        return retezec.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+    }
+    window.addEventListener('beforeunload', function (e) {
+        // zpráva, která se zobrazí v dialogovém okně prohlížeče
+        var message = 'Pokud opustíte tuto stránku, ztratíte svůj progres.';
+        e.preventDefault(); // zruší událost
+        e.returnValue = message; // Chrome, IE
+        return message; // Gecko, WebKit, Safari
+    });
+
+    document.getElementById('obr1').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/1.jpg";
+    document.getElementById('obr2').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/2.jpg";
+    document.getElementById('obr3').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/3.jpg";
+</script>
+
+{% endblock %}
