@@ -81,9 +81,11 @@
                 druhLat = "sylvestris var. mauritiana";
             }
             if (latinsky_druh_spravne == "Rubus sect. Rubus") {
-                druhLat = "sect. Rubus"
+                druhLat = "sect. Rubus";
             }
-            if (latinsky_druh_spravne == "Mentha ")
+            if (latinsky_druh_spravne == "Mentha × piperita") {
+                druhLat = "piperita";
+            }
             if (rodLatOdpv == rodLat && druhLatOdpv == druhLat) {
                 document.getElementById('result1').innerHTML = "Uhodl jsi";
                 body = body + 1;
@@ -105,6 +107,15 @@
             let spravne_split = cesky_druh_spravne.split(" ");
             var spravneRod = bezDiakr(spravne_split[0]);
             var spravneDruh = bezDiakr(spravne_split[1]);
+            if (cesky_druh_spravne == "pískavice řecké seno") {
+                spravneDruh = bezDiakr("řecké seno");
+            }
+            if (cesky_druh_spravne == "sléz lesní maurský") {
+                spravneDruh = bezDiakr("lesní maurský");
+            }
+            if (cesky_druh_spravne == "kokoška pastuší tobolka") {
+                spravneDruh = bezDiakr("pastuší tobolka");
+            }
             if (odpvRod == spravneRod && odpvDruh == spravneDruh) {
                 document.getElementById('result2').innerHTML = "Uhodl jsi";
                 body++;
