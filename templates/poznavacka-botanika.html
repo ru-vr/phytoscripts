@@ -37,6 +37,7 @@
     var poradi = 0;
     var body = 0;
     var vybraneRostliny = {{ vyber | tojson | safe }};
+    var cestyObr = {{ paths | tojson | safe }};
 
     function zvetsitIMG() {
         imgVelikost = String(imgVelikost*1.2);
@@ -54,6 +55,7 @@
         if (document.getElementById('kontrolBtn').value == "Další") {
             poradi++;
             document.getElementById('cisloOtazky').innerHTML = "Otázka č. " + (poradi+1);
+            /*
             var obr1Path = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/1.jpg"
             fetch(obr1Path)
                 .catch(e => {
@@ -63,6 +65,11 @@
             document.getElementById('obr1').src = obr1Path;
             document.getElementById('obr2').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/2.jpg";
             document.getElementById('obr3').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/3.jpg";
+
+             */
+            document.getElementById('obr1').src = cestyObr[poradi][0];
+            document.getElementById('obr2').src = cestyObr[poradi][1];
+            document.getElementById('obr3').src = cestyObr[poradi][2];
             document.getElementById('result1').innerHTML = "";
             document.getElementById('result2').innerHTML = "";
             document.getElementById('result3').innerHTML = "";
@@ -167,10 +174,14 @@
         e.returnValue = message; // Chrome, IE
         return message; // Gecko, WebKit, Safari
     });
-
+    /*
     document.getElementById('obr1').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/1.jpg";
     document.getElementById('obr2').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/2.jpg";
     document.getElementById('obr3').src = "static/images/botanika/" + vybraneRostliny[poradi][1].trim() + "/3.jpg";
+    */
+    document.getElementById('obr1').src = cestyObr[poradi][0];
+    document.getElementById('obr2').src = cestyObr[poradi][1];
+    document.getElementById('obr2').src = cestyObr[poradi][2];
 </script>
 
 {% endblock %}
