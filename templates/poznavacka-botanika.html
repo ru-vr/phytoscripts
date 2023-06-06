@@ -112,7 +112,7 @@
             var odpoved_2_split = odpoved_2.split(" ");
             var odpvRod = odpoved_2_split[0];
             var odpvDruh = odpoved_2_split[1];
-            if (odpoved_2 = "piskavice recke seno") {
+            if (odpoved_2 == "piskavice recke seno") {
                 odpvDruh = "recke seno";
             }
             if (odpoved_2 == "slez lesni maursky") {
@@ -126,16 +126,16 @@
             var spravneRod = bezDiakr(spravne_split[0]);
             var spravneDruh = bezDiakr(spravne_split[1]);
             if (cesky_druh_spravne == "pískavice řecké seno") {
-                spravneDruh = bezDiakr("řecké seno");
+                spravneDruh = "recke seno";
             }
             if (cesky_druh_spravne == "sléz lesní maurský") {
-                spravneDruh = bezDiakr("lesní maurský");
+                spravneDruh = "lesni maursky";
             }
             if (cesky_druh_spravne == "kokoška pastuší tobolka") {
-                spravneDruh = bezDiakr("pastuší tobolka");
+                spravneDruh = "pastusi tobolka";
             }
             if (odpvRod == spravneRod && odpvDruh == spravneDruh) {
-                document.getElementById('result2').innerHTML = "Uhodl jsi";
+                document.getElementById('result2').innerHTML = "Správně!";
                 body++;
             } else if (odpvRod == spravneRod && odpvDruh != spravneDruh) {
                 document.getElementById('result2').innerHTML = "Špatný druhový název, správně to má být: " + cesky_druh_spravne;
@@ -149,7 +149,7 @@
             let odpoved_3 = document.getElementById('odpoved_3').value;
             let latinsky_celed_spravne = vybraneRostliny[poradi][3].trim();
             if (odpoved_3.trim().toLowerCase() == latinsky_celed_spravne.toLowerCase()) {
-                document.getElementById('result3').innerHTML = "Uhodl jsi";
+                document.getElementById('result3').innerHTML = "Správně!";
                 body = body + 0.5;
             } else {
                 document.getElementById('result3').innerHTML = "Špatně, správně to má být: " + latinsky_celed_spravne;
@@ -157,17 +157,17 @@
             let odpoved_4 = document.getElementById('odpoved_4').value;
             let cesky_celed_spravne = vybraneRostliny[poradi][4].trim();
             if (bezDiakr(odpoved_4.trim().toLowerCase()) == bezDiakr(cesky_celed_spravne.toLowerCase())) {
-                document.getElementById('result4').innerHTML = "Uhodl jsi";
+                document.getElementById('result4').innerHTML = "Správně!";
                 body = body + 0.5;
             } else {
                 document.getElementById('result4').innerHTML = "Špatně, správně to má být: " + cesky_celed_spravne;
             }
             var lekopisna = vybraneRostliny[poradi][5];
             if (lekopisna != null) {
-                if (document.getElementById('result4').innerHTML != "Uhodl jsi" ||
-                    document.getElementById('result3').innerHTML != "Uhodl jsi" ||
-                    document.getElementById('result2').innerHTML != "Uhodl jsi" ||
-                    document.getElementById('result1').innerHTML != "Uhodl jsi") {
+                if (document.getElementById('result4').innerHTML != "Správně!" ||
+                    document.getElementById('result3').innerHTML != "Správně!" ||
+                    document.getElementById('result2').innerHTML != "Správně!" ||
+                    document.getElementById('result1').innerHTML != "Správně!") {
                     document.getElementById('trestnyText').innerHTML = "Rostlina je lékopisná, její neznalost je za 1 trestný bod!";
                     body = body - 1;
                 }
