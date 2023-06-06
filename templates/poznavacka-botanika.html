@@ -73,13 +73,13 @@
             var druhRodLatOdpv = odpoved_1.split(" ");
             var rodLatOdpv = druhRodLatOdpv[0];
             var druhLatOdpv = druhRodLatOdpv[1];
-            if (odpoved_1 == "malva sylvestris var. mauritiana") {
+            if (odpoved_1.includes("sylvestris var. mauritiana") == true) {
                 druhLatOdpv = "sylvestris var. mauritiana";
             }
-            if (odpoved_1 == "rubus sect. rubus") {
+            if (odpoved_1.includes("sect. rubus") == true) {
                 druhLatOdpv = "sect. rubus";
             }
-            if (odpoved_1 == "mentha × piperita") {
+            if (odpoved_1.includes("piperita") == true) {
                 druhLatOdpv = "piperita";
             }
             let latinsky_druh_spravne = vybraneRostliny[poradi][1].trim();
@@ -96,7 +96,7 @@
                 druhLat = "piperita";
             }
             if (rodLatOdpv == rodLat && druhLatOdpv == druhLat) {
-                document.getElementById('result1').innerHTML = "Uhodl jsi";
+                document.getElementById('result1').innerHTML = "Správně!";
                 body = body + 1;
             } else if (rodLatOdpv == rodLat && druhLatOdpv != druhLat) {
                 document.getElementById('result1').innerHTML = "Špatný druhový název, správně to má být: " + latinsky_druh_spravne;
@@ -112,13 +112,13 @@
             var odpoved_2_split = odpoved_2.split(" ");
             var odpvRod = odpoved_2_split[0];
             var odpvDruh = odpoved_2_split[1];
-            if (odpoved_2 == "piskavice recke seno") {
+            if (odpoved_2.includes("recke seno") == true) {
                 odpvDruh = "recke seno";
             }
-            if (odpoved_2 == "slez lesni maursky") {
+            if (odpoved_2.includes("lesni maursky") == true) {
                 odpvDruh = "lesni maursky";
             }
-            if (odpoved_2 == "kokoska pastusi tobolka") {
+            if (odpoved_2.includes("pastusi tobolka") == true) {
                 odpvDruh = "pastusi tobolka";
             }
             let cesky_druh_spravne = vybraneRostliny[poradi][2].trim().toLowerCase();
