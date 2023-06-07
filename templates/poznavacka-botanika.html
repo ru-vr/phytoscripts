@@ -3,17 +3,17 @@
 {% block content %}
     <h1>{% block title %} Cvičný test z praktické části zkoušky z Farmaceutické botaniky {% endblock %}</h1>
 
-    <div style="padding-left: 60px">
+    <div style="padding-left: 60px; padding-right: 60px;">
         <p><strong>! UPOZORNĚNÍ !</strong></p>
-        <p>Jedná se o neoficiální materiál, který slouží pouze jako učební pomůcka a v žádném případě nenahrazuje
+        <p style="text-align: justify; text-justify: inter-word;">Jedná se o neoficiální materiál, který slouží pouze jako učební pomůcka a v žádném případě nenahrazuje
         doporučené studijní zdroje. Žádný z členů katedry KFGFB neručí za správnost a aktuálnost tohoto materiálu. Pro
             nejaktuálnější vyhlášky a seznamy prosím sledujte sekci <a href="https://intranet.faf.cuni.cz/Studijni-materialy/KFGFB/"
             target="_blank"> studijních materiálů katedry na webu FAF</a>. Tento cvičný test vychází z <a href="static/seznam_taxonu.pdf"
             target="_blank">tohoto seznamu</a>, jež by měl být aktuální i pro rok 2023. Většina obrazových materiálů
-            je převzatá z webu <a href="https://apps.faf.cuni.cz/daidalea/Default.asp">DAIDALEA</a>, který je pro
+            je převzatá z webu <a href="https://apps.faf.cuni.cz/daidalea/Default.asp">Daidalea</a>, který je pro
             samostudium výrazně doporučen.
         </p>
-        <p id='cisloOtazky'>Otázka č. 1</p>
+        <p id='cisloOtazky' style="font-weight: bold;">Otázka č. 1</p>
         <div class="img-container">
         <img src="" id="obr1">
         <img src="" id="obr2">
@@ -25,7 +25,7 @@
         <input type="button" style="cursor: pointer;" value="Zmenšit" onclick="zmensitIMG()">
         <br>
         <p id="vypisBodu" style="font-weight: bold">Tvoje body: 0/60</p>
-        Latinský název: <input type="text" id="odpoved_1" name="odpoved_1"> <span id="result1"></span> <br><br>
+        Latinský název: <input type="text" id="odpoved_1" name="odpoved_1" style="font-style: italic;"> <span id="result1"></span> <br><br>
         Český název:  <input type="text" id="odpoved_2" name="odpoved_2"> <span id="result2"></span> <br><br>
         Čeleď latinsky: <input type="text" id="odpoved_3" name="odpoved_3"> <span id="result3"></span> <br><br>
         Čeleď česky: <input type="text" id="odpoved_4" name="odpoved_4"> <span id="result4"></span> <br>
@@ -101,13 +101,13 @@
                 document.getElementById('result1').innerHTML = "Správně!";
                 body = body + 1;
             } else if (rodLatOdpv == rodLat && druhLatOdpv != druhLat) {
-                document.getElementById('result1').innerHTML = "Špatný druhový název, správně to má být: " + latinsky_druh_spravne;
+                document.getElementById('result1').innerHTML = "Špatný druhový název, správně to má být: <em>" + latinsky_druh_spravne;
                 body = body + 0.5;
             } else if (rodLatOdpv != rodLat && druhLatOdpv == druhLat) {
-                document.getElementById('result1').innerHTML = "Špatný rodový název, správně to má být: " + latinsky_druh_spravne;
+                document.getElementById('result1').innerHTML = "Špatný rodový název, správně to má být: <em>" + latinsky_druh_spravne;
                 body = body + 0.5;
             } else {
-                document.getElementById('result1').innerHTML = "Špatně, správně to má být: " + latinsky_druh_spravne;
+                document.getElementById('result1').innerHTML = "Špatně, správně to má být: <em>" + latinsky_druh_spravne;
             }
 
             let odpoved_2 = bezDiakr(document.getElementById('odpoved_2').value.trim().toLowerCase());
