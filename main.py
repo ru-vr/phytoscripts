@@ -11,8 +11,10 @@ Bootstrap(app)
 #app.config['SECRET_KEY'] = os.environ.get('APP_SECRET_KEY')
 
 def get_db_connection():
-    connection = psycopg2.connect(host=os.environ['DB_HOST'], database=os.environ['DB_NAME'], user=os.environ['DB_USER'],
-                                 password=os.environ['DB_PASSWORD'])
+    #connection = psycopg2.connect(host=os.environ['DB_HOST'], database=os.environ['DB_NAME'], user=os.environ['DB_USER'],
+      #                           password=os.environ['DB_PASSWORD'])
+    connection = psycopg2.connect(host='localhost', database='diplomky', user='postgres',
+                                     password='loooll')
     return connection
 
 @app.route('/')
@@ -90,6 +92,32 @@ def poznavacka_botanika():
     cursor.close()
     connection.close()
     return render_template('poznavacka-botanika.html', vyber=vyber, paths=array_of_all_pahts)
+
+@app.route('/recognition-botany', methods=['GET', 'POST'])
+def recognition_botany():
+   # if request.method == 'POST':
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute('SELECT * FROM poznavacka_botanika ORDER BY random() LIMIT 15')
+    vyber = cursor.fetchall()
+    list_nazvu = [item[1] for item in vyber]
+    list_nazvu = [s.replace("\xa0", "") for s in list_nazvu]
+    list_cest = ["static/images/botanika/"+nazev for nazev in list_nazvu]
+    array_of_all_pahts = []  # je to pole polí
+    for polozka in list_cest:  # poloza je "static/images/botniky/Rod druh"
+        soubory_v_jedne_polozce = os.listdir(polozka)
+        random.shuffle(soubory_v_jedne_polozce) # nahodné promíchání obrazků
+        nahodny_1_soubor = soubory_v_jedne_polozce.pop()
+        nahodny_2_soubor = soubory_v_jedne_polozce.pop()
+        nahodny_3_soubor = soubory_v_jedne_polozce.pop()
+        cesta_1 = polozka + "/" + nahodny_1_soubor
+        cesta_2 = polozka + "/" + nahodny_2_soubor
+        cesta_3 = polozka + "/" + nahodny_3_soubor
+        pole_cest_jedne_rostliny = [cesta_1, cesta_2, cesta_3]
+        array_of_all_pahts.append(pole_cest_jedne_rostliny)
+    cursor.close()
+    connection.close()
+    return render_template('recognition-botany.html', vyber=vyber, paths=array_of_all_pahts)
 
 @app.route('/test')
 def test():
