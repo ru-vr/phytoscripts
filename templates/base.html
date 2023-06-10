@@ -70,16 +70,18 @@
         }
 
         .img-container img {
-            height: 300px;
+            height: 325px;
         }
 
         @media screen and (max-width: 600px) {
             .img-container {
                 flex-direction: column;
+                justify-content: space-around;
+                display: flex;
             }
 
             .img-container img {
-                width: 100%;
+                width: auto;
                 height: auto;
             }
         }
