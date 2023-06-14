@@ -124,7 +124,7 @@ def makro_gnozka():
     cursor = connection.cursor()
     cursor.execute('SELECT * FROM makro_gnozka ORDER BY random() LIMIT 10')
     vyber = cursor.fetchall()
-    list_nazvu = [item[1] for item in vyber]
+    list_nazvu = [item[1].strip() for item in vyber]
     list_nazvu = [s.replace("\xa0", "") for s in list_nazvu]
     list_cest = ["static/images/gnozka_makro/"+nazev for nazev in list_nazvu]
     array_of_all_pahts = []  # je to pole polí
@@ -149,7 +149,7 @@ def macro_gnosy():
     cursor = connection.cursor()
     cursor.execute('SELECT * FROM makro_gnozka ORDER BY random() LIMIT 10')
     vyber = cursor.fetchall()
-    list_nazvu = [item[1] for item in vyber]
+    list_nazvu = [item[1].strip() for item in vyber]
     list_nazvu = [s.replace("\xa0", "") for s in list_nazvu]
     list_cest = ["static/images/gnozka_makro/"+nazev for nazev in list_nazvu]
     array_of_all_pahts = []  # je to pole polí
