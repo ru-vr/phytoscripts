@@ -86,13 +86,13 @@
                 document.getElementById('result2').innerHTML = "Správně!";
                 body++;
             } else if (odpvRod == spravneRod && odpvDruh != spravneDruh) {
-                document.getElementById('result2').innerHTML = "Špatný druhový název, správně to má být: " + rostlina_spravne;
+                document.getElementById('result2').innerHTML = "Špatný druhový název, správně to má být: <em>" + rostlina_spravne;
                 body = body + 0.5;
             } else if (odpvRod != spravneRod && odpvDruh == spravneDruh) {
-                document.getElementById('result2').innerHTML = "Špatný rodový název, správně to má být: " + rostlina_spravne;
+                document.getElementById('result2').innerHTML = "Špatný rodový název, správně to má být: <em>" + rostlina_spravne;
                 body = body + 0.5;
             } else {
-                document.getElementById('result2').innerHTML = "Špatně, správně to má být: " + rostlina_spravne;
+                document.getElementById('result2').innerHTML = "Špatně, správně to má být: <em>" + rostlina_spravne;
             }
             let odpoved_3 = document.getElementById('odpoved_3').value;
             let latinsky_celed_spravne = vybraneRostliny[poradi][3].trim();
