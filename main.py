@@ -156,9 +156,16 @@ def macro_gnosy():
     for polozka in list_cest:  # poloza je "static/images/botniky/Rod druh"
         soubory_v_jedne_polozce = os.listdir(polozka)
         random.shuffle(soubory_v_jedne_polozce) # nahodné promíchání obrazků
+        print(soubory_v_jedne_slozce)
         nahodny_1_soubor = soubory_v_jedne_polozce.pop()
-        nahodny_2_soubor = soubory_v_jedne_polozce.pop()
-        nahodny_3_soubor = soubory_v_jedne_polozce.pop()
+        try:
+            nahodny_2_soubor = soubory_v_jedne_polozce.pop()
+        except:
+            print(polozka + " je chybná")
+        try:
+            nahodny_3_soubor = soubory_v_jedne_polozce.pop()
+        except:
+            print(polozka + " je chybná")
         cesta_1 = polozka + "/" + nahodny_1_soubor
         cesta_2 = polozka + "/" + nahodny_2_soubor
         cesta_3 = polozka + "/" + nahodny_3_soubor
