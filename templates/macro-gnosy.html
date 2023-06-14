@@ -27,8 +27,8 @@
         Drug name: <input type="text" id="odpoved_1" name="odpoved_1"> <span id="result1"></span> <br><br>
         Mother plant:  <input type="text" id="odpoved_2" name="odpoved_2" style="font-style: italic;"> <span id="result2"></span> <br><br>
         Family: <input type="text" id="odpoved_3" name="odpoved_3"> <span id="result3"></span> <br><br>
-        <input type="button" style="cursor: pointer;" onclick="zkontrolujOdpoved()" value="Zkontrolovat" id="kontrolBtn">
-        <input type="button" style="cursor: pointer; display: none;" onclick="window.location.reload()" value="Nový test" id="novyTestBtn">
+        <input type="button" style="cursor: pointer;" onclick="zkontrolujOdpoved()" value="Check" id="kontrolBtn">
+        <input type="button" style="cursor: pointer; display: none;" onclick="window.location.reload()" value="New test" id="novyTestBtn">
 
     </div>
 <script type="text/javascript">
@@ -51,7 +51,7 @@
         document.getElementById('obr3').style.height = imgVelikost + 'px';
     }
     function zkontrolujOdpoved() {
-        if (document.getElementById('kontrolBtn').value == "Další") {
+        if (document.getElementById('kontrolBtn').value == "Next") {
             poradi++;
             document.getElementById('cisloOtazky').innerHTML = "Drug No. " + (poradi+1);
             document.getElementById('obr1').src = cestyObr[poradi][0];
@@ -63,7 +63,7 @@
             document.getElementById('odpoved_1').value = "";
             document.getElementById('odpoved_2').value = "";
             document.getElementById('odpoved_3').value = "";
-            document.getElementById('kontrolBtn').value = "Zkontrolovat";
+            document.getElementById('kontrolBtn').value = "Check";
         } else {
             let odpoved_1 = document.getElementById('odpoved_1').value.trim().toLowerCase();
             let droga_spravne = vybraneRostliny[poradi][1].trim();
@@ -87,13 +87,13 @@
                 document.getElementById('result2').innerHTML = "Correct!";
                 body++;
             } else if (odpvRod == spravneRod && odpvDruh != spravneDruh) {
-                document.getElementById('result2').innerHTML = "Wrong species name, it is: " + rostlina_spravne;
+                document.getElementById('result2').innerHTML = "Wrong species name, it is: <em>" + rostlina_spravne;
                 body = body + 0.5;
             } else if (odpvRod != spravneRod && odpvDruh == spravneDruh) {
-                document.getElementById('result2').innerHTML = "Wrong genus name, it is: " + rostlina_spravne;
+                document.getElementById('result2').innerHTML = "Wrong genus name, it is: <em>" + rostlina_spravne;
                 body = body + 0.5;
             } else {
-                document.getElementById('result2').innerHTML = "Wrong, it is: " + rostlina_spravne;
+                document.getElementById('result2').innerHTML = "Wrong, it is: <em>" + rostlina_spravne;
             }
             let odpoved_3 = document.getElementById('odpoved_3').value;
             let latinsky_celed_spravne = vybraneRostliny[poradi][3].trim();
@@ -110,9 +110,9 @@
                 document.getElementById('kontrolBtn').disabled = true;
                 document.getElementById('novyTestBtn').style.display = "inline";
                 if (body >= 21) {
-                    document.getElementById('vypisBodu').innerHTML = "Points: " + body + "/30 - Minimal treshold for success 70 % accomplished, congratulutions!";
+                    document.getElementById('vypisBodu').innerHTML = "Points: " + body + "/30 - Minimal threshold for success 70 % accomplished, congratulutions!";
                 } else {
-                    document.getElementById('vypisBodu').innerHTML = "Points: " + body + "/30 - Insufficient points for the minimal treshold of 70 % for passing the test!";
+                    document.getElementById('vypisBodu').innerHTML = "Points: " + body + "/30 - Insufficient points for the minimal threshold of 70 % for passing the test!";
                 }
 
             } else {
