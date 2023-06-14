@@ -11,8 +11,10 @@ Bootstrap(app)
 #app.config['SECRET_KEY'] = os.environ.get('APP_SECRET_KEY')
 
 def get_db_connection():
-    connection = psycopg2.connect(host=os.environ['DB_HOST'], database=os.environ['DB_NAME'], user=os.environ['DB_USER'],
-                                 password=os.environ['DB_PASSWORD'])
+    #connection = psycopg2.connect(host=os.environ['DB_HOST'], database=os.environ['DB_NAME'], user=os.environ['DB_USER'],
+      #                           password=os.environ['DB_PASSWORD'])
+    connection = psycopg2.connect(host='localhost', database='diplomky', user='postgres',
+                                     password='loooll')
     return connection
 
 @app.route('/')
@@ -141,6 +143,31 @@ def makro_gnozka():
     cursor.close()
     connection.close()
     return render_template('makro-gnozka.html', vyber=vyber, paths=array_of_all_pahts)
+
+@app.route('/macro-gnosy', methods=['GET', 'POST'])
+def macro_gnosy():
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute('SELECT * FROM makro_gnozka ORDER BY random() LIMIT 10')
+    vyber = cursor.fetchall()
+    list_nazvu = [item[1] for item in vyber]
+    list_nazvu = [s.replace("\xa0", "") for s in list_nazvu]
+    list_cest = ["static/images/gnozka_makro/"+nazev for nazev in list_nazvu]
+    array_of_all_pahts = []  # je to pole polí
+    for polozka in list_cest:  # poloza je "static/images/botniky/Rod druh"
+        soubory_v_jedne_polozce = os.listdir(polozka)
+        random.shuffle(soubory_v_jedne_polozce) # nahodné promíchání obrazků
+        nahodny_1_soubor = soubory_v_jedne_polozce.pop()
+        nahodny_2_soubor = soubory_v_jedne_polozce.pop()
+        nahodny_3_soubor = soubory_v_jedne_polozce.pop()
+        cesta_1 = polozka + "/" + nahodny_1_soubor
+        cesta_2 = polozka + "/" + nahodny_2_soubor
+        cesta_3 = polozka + "/" + nahodny_3_soubor
+        pole_cest_jedne_rostliny = [cesta_1, cesta_2, cesta_3]
+        array_of_all_pahts.append(pole_cest_jedne_rostliny)
+    cursor.close()
+    connection.close()
+    return render_template('macro-gnosy.html', vyber=vyber, paths=array_of_all_pahts)
 
 @app.route('/test')
 def test():
