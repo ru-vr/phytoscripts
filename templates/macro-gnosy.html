@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Cvičný test z makroskopické části poznávací zkoušky z Farmakognozie {% endblock %}</h1>
+    <h1>{% block title %} Macroscopic part of credit exam from Farmacognosy {% endblock %}</h1>
 
     <div style="padding-left: 60px; padding-right: 60px;">
-        <p><strong>! UPOZORNĚNÍ !</strong><span style="float: right;"><img src="static/images/uk-16.png" height="13" width="19"> <a href="{{ url_for('macro_gnosy') }}">English</a></span></p>
-        <p style="text-align: justify; text-justify: inter-word;">Jedná se o neoficiální materiál, který slouží pouze jako učební pomůcka a v žádném případě nenahrazuje
-        doporučené studijní zdroje. Žádný z členů katedry KFGFB neručí za správnost a aktuálnost tohoto materiálu. Pro
-            nejaktuálnější vyhlášky a seznamy prosím sledujte sekci <a href="https://intranet.faf.cuni.cz/Studijni-materialy/KFGFB/"
-            target="_blank"> studijních materiálů katedry na webu FAF</a>. Tento cvičný test vychází z <a href="static/seznam_drog.pdf"
-            target="_blank">tohoto seznamu</a>, jež by měl být aktuální i pro rok 2023.
+        <p><strong>! DISCLAIMER !</strong><span style="float: right;"><img src="static/images/czech-16.png" height="13" width="19"> <a href="{{ url_for('makro_gnozka') }}">Czech</a></span></p>
+        <p style="text-align: justify; text-justify: inter-word;">This is unofficial material that serves only as a learning
+            aid and in no way replaces the recommended study resources. None of the members of the KFGFB department guarantee
+            the correctness and accuracy of this material. For the most current announcements and lists, please follow the
+            section <a href="https://intranet.faf.cuni.cz/Study-materials/KFGFB/" target="_blank"> of study materials on the Faculty website.</a>
+            This practice test is based on <a href="static/seznam_drog.pdf" target="_blank">this list</a>, which should be
+            current even for the year 2023.
         </p>
-        <p id='cisloOtazky' style="font-weight: bold;">Droga č. 1</p>
+        <p id='cisloOtazky' style="font-weight: bold;">Drug No. 1</p>
         <div class="img-container">
         <img src="" id="obr1">
         <img src="" id="obr2">
@@ -19,13 +20,13 @@
         </div>
 
         <br>
-        <input type="button" style="cursor: pointer;" value="Zvětšit" onclick="zvetsitIMG()">
-        <input type="button" style="cursor: pointer;" value="Zmenšit" onclick="zmensitIMG()">
+        <input type="button" style="cursor: pointer;" value="Magnify" onclick="zvetsitIMG()">
+        <input type="button" style="cursor: pointer;" value="Reduce" onclick="zmensitIMG()">
         <br>
-        <p id="vypisBodu" style="font-weight: bold">Body: 0/30</p>
-        Droga latinsky: <input type="text" id="odpoved_1" name="odpoved_1"> <span id="result1"></span> <br><br>
-        Matečná rostlina latisnky:  <input type="text" id="odpoved_2" name="odpoved_2" style="font-style: italic;"> <span id="result2"></span> <br><br>
-        Čeleď latinsky: <input type="text" id="odpoved_3" name="odpoved_3"> <span id="result3"></span> <br><br>
+        <p id="vypisBodu" style="font-weight: bold">Points: 0/30</p>
+        Drug name: <input type="text" id="odpoved_1" name="odpoved_1"> <span id="result1"></span> <br><br>
+        Mother plant:  <input type="text" id="odpoved_2" name="odpoved_2" style="font-style: italic;"> <span id="result2"></span> <br><br>
+        Family: <input type="text" id="odpoved_3" name="odpoved_3"> <span id="result3"></span> <br><br>
         <input type="button" style="cursor: pointer;" onclick="zkontrolujOdpoved()" value="Zkontrolovat" id="kontrolBtn">
         <input type="button" style="cursor: pointer; display: none;" onclick="window.location.reload()" value="Nový test" id="novyTestBtn">
 
@@ -52,7 +53,7 @@
     function zkontrolujOdpoved() {
         if (document.getElementById('kontrolBtn').value == "Další") {
             poradi++;
-            document.getElementById('cisloOtazky').innerHTML = "Otázka č. " + (poradi+1);
+            document.getElementById('cisloOtazky').innerHTML = "Drug No. " + (poradi+1);
             document.getElementById('obr1').src = cestyObr[poradi][0];
             document.getElementById('obr2').src = cestyObr[poradi][1];
             document.getElementById('obr3').src = cestyObr[poradi][2];
@@ -68,10 +69,10 @@
             let droga_spravne = vybraneRostliny[poradi][1].trim();
 
             if (odpoved_1 == droga_spravne.toLowerCase()) {
-                document.getElementById('result1').innerHTML = "Správně!";
+                document.getElementById('result1').innerHTML = "Correct!";
                 body = body + 1;
             } else {
-                document.getElementById('result1').innerHTML = "Špatně, správně to má být: " + droga_spravne;
+                document.getElementById('result1').innerHTML = "Wrong, it is: " + droga_spravne;
             }
 
             let odpoved_2 = document.getElementById('odpoved_2').value.trim().toLowerCase();
@@ -83,39 +84,39 @@
             var spravneRod = spravne_split[0];
             var spravneDruh = spravne_split[1];
             if (odpvRod == spravneRod && odpvDruh == spravneDruh) {
-                document.getElementById('result2').innerHTML = "Správně!";
+                document.getElementById('result2').innerHTML = "Correct!";
                 body++;
             } else if (odpvRod == spravneRod && odpvDruh != spravneDruh) {
-                document.getElementById('result2').innerHTML = "Špatný druhový název, správně to má být: " + rostlina_spravne;
+                document.getElementById('result2').innerHTML = "Wrong species name, it is: " + rostlina_spravne;
                 body = body + 0.5;
             } else if (odpvRod != spravneRod && odpvDruh == spravneDruh) {
-                document.getElementById('result2').innerHTML = "Špatný rodový název, správně to má být: " + rostlina_spravne;
+                document.getElementById('result2').innerHTML = "Wrong genus name, it is: " + rostlina_spravne;
                 body = body + 0.5;
             } else {
-                document.getElementById('result2').innerHTML = "Špatně, správně to má být: " + rostlina_spravne;
+                document.getElementById('result2').innerHTML = "Wrong, it is: " + rostlina_spravne;
             }
             let odpoved_3 = document.getElementById('odpoved_3').value;
             let latinsky_celed_spravne = vybraneRostliny[poradi][3].trim();
             if (odpoved_3.trim().toLowerCase() == latinsky_celed_spravne.toLowerCase()) {
-                document.getElementById('result3').innerHTML = "Správně!";
+                document.getElementById('result3').innerHTML = "Correct!";
                 body = body + 1;
             } else {
-                document.getElementById('result3').innerHTML = "Špatně, správně to má být: " + latinsky_celed_spravne;
+                document.getElementById('result3').innerHTML = "Wrong, it is: " + latinsky_celed_spravne;
             }
 
-            document.getElementById('vypisBodu').innerHTML = "Body: " + body + "/30";
+            document.getElementById('vypisBodu').innerHTML = "Points: " + body + "/30";
             if (poradi == 9) {
-                document.getElementById('kontrolBtn').value = "Konec testu";
+                document.getElementById('kontrolBtn').value = "End of test";
                 document.getElementById('kontrolBtn').disabled = true;
                 document.getElementById('novyTestBtn').style.display = "inline";
                 if (body >= 21) {
-                    document.getElementById('vypisBodu').innerHTML = "Body: " + body + "/30 - Minimální hranice úspěšnosti 70% splněna, gratuluji!";
+                    document.getElementById('vypisBodu').innerHTML = "Points: " + body + "/30 - Minimal treshold for success 70 % accomplished, congratulutions!";
                 } else {
-                    document.getElementById('vypisBodu').innerHTML = "Body: " + body + "/30 - Nedostatečné body pro splnění minimální hranice úspěšnosti 70 %, je potřeba se to ještě naučit!";
+                    document.getElementById('vypisBodu').innerHTML = "Points: " + body + "/30 - Insufficient points for the minimal treshold of 70 % for passing the test!";
                 }
 
             } else {
-                document.getElementById('kontrolBtn').value = "Další";
+                document.getElementById('kontrolBtn').value = "Next";
             }
         }
     }
