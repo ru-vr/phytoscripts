@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_new.html' %}
 
 {% block content %}
     <h1>{% block title %} Macroscopic part of credit exam from Farmacognosy {% endblock %}</h1>
@@ -20,9 +20,9 @@
         </div>
 
         <br>
-        <input type="button" style="cursor: pointer;" value="Magnify" onclick="zvetsitIMG()">
-        <input type="button" style="cursor: pointer;" value="Reduce" onclick="zmensitIMG()">
-        <br>
+        <!-- <input type="button" style="cursor: pointer;" value="Magnify" onclick="zvetsitIMG()">
+        <input type="button" style="cursor: pointer;" value="Reduce" onclick="zmensitIMG()"> -->
+
         <p id="vypisBodu" style="font-weight: bold">Points: 0/30</p>
         Drug name: <input type="text" id="odpoved_1" name="odpoved_1"> <span id="result1"></span> <br><br>
         Mother plant:  <input type="text" id="odpoved_2" name="odpoved_2" style="font-style: italic;"> <span id="result2"></span> <br><br>

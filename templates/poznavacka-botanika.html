@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_new.html' %}
 
 {% block content %}
     <h1>{% block title %} Cvičný test z praktické části zkoušky z Farmaceutické botaniky {% endblock %}</h1>
@@ -21,9 +21,9 @@
         </div>
 
         <br>
-        <input type="button" style="cursor: pointer;" value="Zvětšit" onclick="zvetsitIMG()">
-        <input type="button" style="cursor: pointer;" value="Zmenšit" onclick="zmensitIMG()">
-        <br>
+        <!-- <input type="button" style="cursor: pointer;" value="Zvětšit" onclick="zvetsitIMG()">
+        <input type="button" style="cursor: pointer;" value="Zmenšit" onclick="zmensitIMG()"> -->
+
         <p id="vypisBodu" style="font-weight: bold">Body: 0/45</p>
         Latinský název: <input type="text" id="odpoved_1" name="odpoved_1" style="font-style: italic;"> <span id="result1"></span> <br><br>
         Český název:  <input type="text" id="odpoved_2" name="odpoved_2"> <span id="result2"></span> <br><br>
@@ -170,11 +170,11 @@
                     document.getElementById('result3').innerHTML != "Správně!" ||
                     document.getElementById('result2').innerHTML != "Správně!" ||
                     document.getElementById('result1').innerHTML != "Správně!") {
-                    document.getElementById('trestnyText').innerHTML = "Rostlina je lékopisná, její neznalost je za 1 trestný bod!";
+                    document.getElementById('trestnyText').innerHTML = "<br> Rostlina je lékopisná, její neznalost je za 1 trestný bod!";
                     body = body - 1;
                 }
             }
-            document.getElementById('vypisBodu').innerHTML = "Tvoje body: " + body + "/45";
+            document.getElementById('vypisBodu').innerHTML = "Body: " + body + "/45";
             if (poradi == 14) {
                 document.getElementById('kontrolBtn').value = "Konec testu";
                 document.getElementById('kontrolBtn').disabled = true;

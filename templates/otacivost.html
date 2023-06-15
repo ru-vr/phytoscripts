@@ -1,37 +1,66 @@
-{% extends 'base.html' %}
+{% extends 'base_new.html' %}
 
 {% block content %}
-    <h1>{% block title %} Výpočet optické otáčivosti {% endblock %}</h1>
-    <p><a href="{{ url_for('kfgfb') }}">Zpět na úvodní stránku</a></p>
-<div style="padding-left: 80px">
-    <form id="myForm">
-      Koncentrace [g/100 ml]: <input type="number" id="conc" name="conc"><br>
-      1. měření: <input type="number" id="val1" name="val1"><br>
-      2. měření: <input type="number" id="val2" name="val2"><br>
-      3. měření: <input type="number" id="val3" name="val3"><br>
-      4. měření: <input type="number" id="val4" name="val4"><br>
-      5. měření: <input type="number" id="val5" name="val5"><br><br>
-      <input type="button" onclick="calculateMean()" value="Spočítej">
-    </form>
-<p id="result"></p>
+<div class="container py-5">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center">{% block title %} Výpočet optické otáčivosti {% endblock %}</h1>
+            <p class="mb-4"><a href="{{ url_for('kfgfb') }}" class="text-decoration-none">Zpět na úvodní stránku</a></p>
+
+            <form id="myForm" class="mx-auto" style="max-width: 300px;">
+                <div class="form-group">
+                    <label for="conc">Koncentrace [g/100 ml]:</label>
+                    <input type="number" class="form-control" id="conc" name="conc">
+                </div>
+
+                <div class="form-group">
+                    <label for="val1">1. měření:</label>
+                    <input type="number" class="form-control" id="val1" name="val1">
+                </div>
+
+                <div class="form-group">
+                    <label for="val2">2. měření:</label>
+                    <input type="number" class="form-control" id="val2" name="val2">
+                </div>
+
+                <div class="form-group">
+                    <label for="val3">3. měření:</label>
+                    <input type="number" class="form-control" id="val3" name="val3">
+                </div>
+
+                <div class="form-group">
+                    <label for="val4">4. měření:</label>
+                    <input type="number" class="form-control" id="val4" name="val4">
+                </div>
+
+                <div class="form-group">
+                    <label for="val5">5. měření:</label>
+                    <input type="number" class="form-control" id="val5" name="val5">
+                </div>
+
+                <button type="button" class="btn btn-primary mt-3" onclick="calculateMean()">Spočítej</button>
+            </form>
+
+            <p id="result" class="text-center mt-4"></p>
+        </div>
+    </div>
 </div>
 
 <script>
-function calculateMean() {
-  let conc = parseFloat(document.getElementById('conc').value);
-  let val1 = parseFloat(document.getElementById('val1').value);
-  let val2 = parseFloat(document.getElementById('val2').value);
-  let val3 = parseFloat(document.getElementById('val3').value);
-  let val4 = parseFloat(document.getElementById('val4').value);
-  let val5 = parseFloat(document.getElementById('val5').value);
+    function calculateMean() {
+        let conc = parseFloat(document.getElementById('conc').value);
+        let val1 = parseFloat(document.getElementById('val1').value);
+        let val2 = parseFloat(document.getElementById('val2').value);
+        let val3 = parseFloat(document.getElementById('val3').value);
+        let val4 = parseFloat(document.getElementById('val4').value);
+        let val5 = parseFloat(document.getElementById('val5').value);
 
-  let mean = (val1 + val2 + val3 + val4 + val5) / 5;
-  mean = 100*mean/(0.5*conc);
-  mean = mean.toFixed(2);
+        let mean = (val1 + val2 + val3 + val4 + val5) / 5;
+        mean = 100*mean/(0.5*conc);
+        mean = mean.toFixed(2);
 
-  document.getElementById('result').innerHTML = 'Specifická otáčivost = ' + mean + '°';
-}
+        document.getElementById('result').innerHTML = 'Specifická otáčivost = ' + mean + '°';
+    }
 </script>
-
 
 {% endblock %}

@@ -1,20 +1,30 @@
-{% extends 'base.html' %}
+{% extends 'base_new.html' %}
 
 {% block content %}
-    <h1>{% block title %} Katedra FarmakoGnozie a Farmaceutické Botaniky {% endblock %}</h1>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center">{% block title %} Katedra Farmakognozie a Farmaceutické Botaniky {% endblock %}</h1>
+                <hr>
 
+                <div class="my-4">
+                    <p class="lead">Vítejte na stránkách KFGFB a výzkumné skupiny <a href="https://portal.faf.cuni.cz/Groups/ADINACO/" class="text-decoration-none">Sekundárních metabolitů rostlin jako potencionálních léčiv</a>!</p>
+                </div>
 
-    <div style="padding-left: 60px">
-      <p>Vítejte na stránkách KFGFB a výzkumné skupiny <a href="https://portal.faf.cuni.cz/Groups/ADINACO/">Sekundárních
-       metabolitů rostlin jako potencionálních léčiv</a>!</p>
-      <p>Co všechno tu naleznete?</p>
-      <p><a href="{{ url_for('diplomky') }}">Databázi všech diplomek, které se zabývaly izolací alkaloidů </a></p>
-      <p><a href="{{ url_for('alkaloidy') }}">Seznam všech alkaloidů, jež byly v rámci diplomek izolovány</a></p>
-      <p><a href="{{ url_for('otacivost') }}">Kalkulačku pro výpočet specifické optické otáčivosti</a></p>
-      <p>A další věci, které zde budou časem přibývat!</p>
-        <p><strong>Pro studenty:</strong></p>
-        <p><a href="{{ url_for('poznavacka_botanika') }}">Cvičný test z praktické části zkoušky Farmakobotaniky</a></p>
-        <p><a href="{{ url_for('makro_gnozka') }}">Cvičný test z makroskopické části poznávací zkoušky Farmakognozie</a></p>
+                <h3 class="mb-3">Co všechno tu naleznete?</h3>
+                <ul class="list-unstyled">
+                    <li><a href="{{ url_for('diplomky') }}" class="text-decoration-none">Databázi všech diplomek, které se zabývaly izolací alkaloidů</a></li>
+                    <li><a href="{{ url_for('alkaloidy') }}" class="text-decoration-none">Seznam všech alkaloidů, jež byly v rámci diplomek izolovány</a></li>
+                    <li><a href="{{ url_for('otacivost') }}" class="text-decoration-none">Kalkulačku pro výpočet specifické optické otáčivosti</a></li>
+                </ul>
+                <p>A další věci, které zde budou časem přibývat!</p>
+
+                <h3 class="mt-5 mb-3"><strong>Pro studenty:</strong></h3>
+                <ul class="list-unstyled">
+                    <li><a href="{{ url_for('poznavacka_botanika') }}" class="text-decoration-none">Cvičný test z praktické části zkoušky Farmakobotaniky</a></li>
+                    <li><a href="{{ url_for('makro_gnozka') }}" class="text-decoration-none">Cvičný test z makroskopické části poznávací zkoušky Farmakognozie</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-
 {% endblock %}
