@@ -20,8 +20,6 @@
         </div>
 
         <br>
-        <!-- <input type="button" style="cursor: pointer;" value="Magnify" onclick="zvetsitIMG()">
-        <input type="button" style="cursor: pointer;" value="Reduce" onclick="zmensitIMG()"> -->
 
         <p id="vypisBodu" style="font-weight: bold">Points: 0/30</p>
         Drug name: <input type="text" id="odpoved_1" name="odpoved_1"> <span id="result1"></span> <br><br>
@@ -38,18 +36,6 @@
     var vybraneRostliny = {{ vyber | tojson | safe }};
     var cestyObr = {{ paths | tojson | safe }};
 
-    function zvetsitIMG() {
-        imgVelikost = String(imgVelikost*1.2);
-        document.getElementById('obr1').style.height = imgVelikost + 'px';
-        document.getElementById('obr2').style.height = imgVelikost + 'px';
-        document.getElementById('obr3').style.height = imgVelikost + 'px';
-    }
-    function zmensitIMG() {
-        imgVelikost = String(imgVelikost/1.2);
-        document.getElementById('obr1').style.height = imgVelikost + 'px';
-        document.getElementById('obr2').style.height = imgVelikost + 'px';
-        document.getElementById('obr3').style.height = imgVelikost + 'px';
-    }
     function zkontrolujOdpoved() {
         if (document.getElementById('kontrolBtn').value == "Next") {
             poradi++;
@@ -80,16 +66,33 @@
             let odpvRod = odpv_split[0];
             let odpvDruh = odpv_split[1];
             let rostlina_spravne = vybraneRostliny[poradi][2].trim();
-            let spravne_split = rostlina_spravne.toLowerCase().split(" ");
-            var spravneRod = spravne_split[0];
-            var spravneDruh = spravne_split[1];
-            if (odpvRod == spravneRod && odpvDruh == spravneDruh) {
+            let poleSpravnychDruhu = [];
+            let poleSpravnychRodu = [];
+            let spravneRod = "";
+            let spravneDruh = "";
+            if (rostlina_spravne.includes(",")) {
+                let poleSpravnychRostlin = rostlina_spravne.toLowerCase().split(", ");
+                poleSpravnychRodu = poleSpravnychRostlin.map(function(celyNazev) {
+                    var poleNazev = celyNazev.split(" ");
+                    return poleNazev[0];
+                });
+                poleSpravnychDruhu = poleSpravnychRostlin.map(function(celyNazev) {
+                    let poleNazev = celyNazev.split(" ");
+                    return poleNazev[1];
+                });
+                rostlina_spravne = rostlina_spravne.replace(/,/g, ", </em>or<em>");
+            } else {
+                let spravne_split = rostlina_spravne.toLowerCase().split(" ");
+                spravneRod = spravne_split[0];
+                spravneDruh = spravne_split[1];
+            }
+            if ((odpvRod == spravneRod && odpvDruh == spravneDruh) || (poleSpravnychRodu.some(rod => odpvRod.includes(rod)) && poleSpravnychDruhu.some(druh => odpvDruh.includes(druh)) ) )  {
                 document.getElementById('result2').innerHTML = "Correct!";
                 body++;
-            } else if (odpvRod == spravneRod && odpvDruh != spravneDruh) {
+            } else if ((odpvRod == spravneRod && odpvDruh != spravneDruh) || (poleSpravnychRodu.some(rod => odpvRod.includes(rod)) && !poleSpravnychDruhu.some(druh => odpvDruh.includes(druh)) ) )  {
                 document.getElementById('result2').innerHTML = "Wrong species name, it is: <em>" + rostlina_spravne;
                 body = body + 0.5;
-            } else if (odpvRod != spravneRod && odpvDruh == spravneDruh) {
+            } else if ((odpvRod != spravneRod && odpvDruh == spravneDruh) || (!poleSpravnychRodu.some(rod => odpvRod.includes(rod)) && poleSpravnychDruhu.some(druh => odpvDruh.includes(druh)) ) )  {
                 document.getElementById('result2').innerHTML = "Wrong genus name, it is: <em>" + rostlina_spravne;
                 body = body + 0.5;
             } else {
