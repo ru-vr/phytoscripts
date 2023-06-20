@@ -3,28 +3,39 @@
 {% block content %}
     <h1>{% block title %} <a href="{{ url_for('diplomky') }}">Diplomky</a> | Alkaloidy {% endblock %}</h1>
 
-    <p style="color: red;"><strong>Databáze není kompletní a je zatím pouze v rozpracované verzi!</strong></p>
-    <table rules="all" border="5">
-        <tr align="center" style="font-weight: bold; vertical-align: top"><td>Látka</td><td> Celkové množství [mg] </td>
-            <td> AChE IC<sub>50</sub> [μM] </td><td> BuChE IC<sub>50</sub> [μM] </td>
-            <td> Optická otáčivost </td><td> Diplomky </td><td> Rostlina </td>
-        </tr>
-        {% for alkaloid in alkaloidy %} <!-- 1=nazev, 2=mnozstvi, 3= ache, 4=buche, 5=opticka otacivost, 6=diplomky, 7=rosltina-->
-        <tr align="center" style="vertical-align: top"><td> {{ alkaloid[1] }} </td><td> {{ alkaloid[2] }} </td><td> {{ alkaloid[3] }} </td><td> {{ alkaloid[4] }} </td>
-            <td>
-                {% for udaj in alkaloid[5] %}
-                    {{ "".join(udaj) }}<br>
-                {% endfor %}
-            </td>
-            <td>
-                {% for udaj in alkaloid[6] %}
-                    {{ "".join(udaj) }}<br>
-                {% endfor %}
-            </td>
-            <td><em> {{ alkaloid[7] }} </em></td>
-        </tr>
-        {% endfor %}
+    <p class="text-danger"><strong>Databáze není kompletní a je zatím pouze v rozpracované verzi!</strong></p>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th>Látka</th>
+                <th>Celkové množství [mg]</th>
+                <th>AChE IC<sub>50</sub> [μM]</th>
+                <th>BuChE IC<sub>50</sub> [μM]</th>
+                <th>Optická otáčivost</th>
+                <th>Diplomky</th>
+                <th>Rostlina</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alkaloid in alkaloidy %}
+                <tr>
+                    <td>{{ alkaloid[1] }}</td>
+                    <td>{{ alkaloid[2] }}</td>
+                    <td>{{ alkaloid[3] }}</td>
+                    <td>{{ alkaloid[4] }}</td>
+                    <td>
+                        {% for udaj in alkaloid[5] %}
+                            {{ "".join(udaj) }}<br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for udaj in alkaloid[6] %}
+                            {{ "".join(udaj) }}<br>
+                        {% endfor %}
+                    </td>
+                    <td><em>{{ alkaloid[7] }}</em></td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
-
-
 {% endblock %}

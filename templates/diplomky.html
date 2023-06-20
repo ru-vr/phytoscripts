@@ -3,21 +3,32 @@
 {% block content %}
     <h1>{% block title %} Diplomky | <a href="{{ url_for('alkaloidy') }}">Alkaloidy</a> {% endblock %}</h1>
 
-    <p style="color: red;"><strong>Databáze není kompletní a je zatím pouze v rozpracované verzi!</strong></p>
-    <table rules="all" border="5">
-        <tr align="center" style="font-weight: bold; vertical-align: top"><td>Jméno</td><td> Rok obhajoby </td><td> Druh rostliny </td><td> Izolované alkaloidy </td>
-            <td>Školitel</td></tr>
-        {% for diplomka in seznam_diplomek %}
-            {% set str="" %}
-        <tr align="center" style="vertical-align: top"><td><a href="{{ diplomka[7] }}">{{ diplomka[1] }}</a></td><td> {{ diplomka[2] }} </td><td> <em>{{ diplomka[3] }}</em> </td>
-            <td>
-                {% for latka in diplomka[6] %}
-                    <a href="{{ url_for('alkaloid', alk=str.join(latka)) }}" style="">{{ latka }}</a><br>
-                {% endfor %}
-            </td>
-            <td> {{ diplomka[8] }} </td></tr>
-        {% endfor %}
+    <p class="text-danger"><strong>Databáze není kompletní a je zatím pouze v rozpracované verzi!</strong></p>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th>Jméno</th>
+                <th>Rok obhajoby</th>
+                <th>Druh rostliny</th>
+                <th>Izolované alkaloidy</th>
+                <th>Školitel</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for diplomka in seznam_diplomek %}
+                {% set str="" %}
+                <tr>
+                    <td><a href="{{ diplomka[7] }}">{{ diplomka[1] }}</a></td>
+                    <td>{{ diplomka[2] }}</td>
+                    <td><em>{{ diplomka[3] }}</em></td>
+                    <td>
+                        {% for latka in diplomka[6] %}
+                            <a href="{{ url_for('alkaloid', alk=str.join(latka)) }}">{{ latka }}</a><br>
+                        {% endfor %}
+                    </td>
+                    <td>{{ diplomka[8] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
-
-
 {% endblock %}
