@@ -2,9 +2,11 @@
 
 {% block content %}
     <h1>{% block title %} Diplomky | <a href="{{ url_for('alkaloidy') }}">Alkaloidy</a> {% endblock %}</h1>
+<!--<form action="{{ url_for('find_alkaloid') }}" method="POST">
+    <input type="text" name="hledej_alk"> <input type="submit" value="Hledej alkaloid" class="btn btn-secondary"></form>-->
 
     <p class="text-danger"><strong>Databáze není kompletní a je zatím pouze v rozpracované verzi!</strong></p>
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped" id="diplomkyTable">
         <thead class="thead-light">
             <tr>
                 <th>Jméno</th>
@@ -31,4 +33,11 @@
             {% endfor %}
         </tbody>
     </table>
+
+<script>
+$(document).ready( function () {
+    $('#diplomkyTable').DataTable();
+} );
+</script>
+
 {% endblock %}
