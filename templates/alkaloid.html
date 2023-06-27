@@ -1,15 +1,23 @@
 {% extends 'base_new.html' %}
 
 {% block content %}
-    <h1>{% block title %} Alkaloid {% endblock %}</h1>
-    <p><a href="{{ url_for('diplomky') }}" class="btn btn-primary">Zpět na výpis diplomek</a></p>
+    {% block title %}
+        {% if not alkaloid: %}
+            <h1> <strong>Alkaloid "{{ hledany_alk }}" není v databázi!</strong> </h1>
+        {% else: %}
+            <h1> {{ alkaloid[0][1] }} </h1>
+        {% endif %}
+    {% endblock %}
+    <p><a href="javascript:history.back()" class="btn btn-primary">Jít zpět</a></p>
     <table class="table table-bordered table-striped">
         <thead class="thead-light">
             <tr>
                 <th>Látka</th>
-                <th>Celkové množství [mg]</th>
+
                 <th>AChE IC<sub>50</sub> [μM]</th>
                 <th>BuChE IC<sub>50</sub> [μM]</th>
+                <th>POP IC<sub>50</sub> [μM]</th>
+                <th>GSK-3β IC<sub>50</sub> [μM]</th>
                 <th>Optická otáčivost</th>
                 <th>Diplomky</th>
                 <th>Rostlina</th>
@@ -19,9 +27,11 @@
             {% for vlastnost in alkaloid %}
                 <tr>
                     <td>{{ vlastnost[1] }}</td>
-                    <td>{{ vlastnost[2] }}</td>
+
                     <td>{{ vlastnost[3] }}</td>
                     <td>{{ vlastnost[4] }}</td>
+                    <td>{{ vlastnost[8] }}</td>
+                    <td>{{ vlastnost[9] }}</td>
                     <td>
                         {% for udaj in vlastnost[5] %}
                             {{ "".join(udaj) }}<br>
