@@ -46,7 +46,24 @@
     </table>
 <script>
 $(document).ready( function () {
-    $('#alkaloidyTable').DataTable();
+    $('#alkaloidyTable').DataTable({
+        "language": {
+            "search": "Hledej:",
+            "lengthMenu": "Zobraz _MENU_ záznamů na stránku",
+            "zeroRecords": "Nenalezeny žádné záznamy",
+            "info": "Zobrazena stránka _PAGE_ z _PAGES_",
+            "infoEmpty": "Žádné záznamy k dispozici",
+            "infoFiltered": "(vyfiltrované z celkem _MAX_ záznamů)",
+            "paginate": {
+                "first": "První",
+                "last": "Poslední",
+                "next":       "Další",
+                "previous":   "Předchozí"
+            },
+        },
+        "pageLength": 50,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Vše"]],
+    });
 } );
 </script>
 
