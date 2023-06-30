@@ -62,9 +62,15 @@
             }
 
             let odpoved_2 = document.getElementById('odpoved_2').value.trim().toLowerCase();
-            let odpv_split = odpoved_2.split(" ");
-            let odpvRod = odpv_split[0];
-            let odpvDruh = odpv_split[1];
+            let odpv_split, odpvRod, odpvDruh;
+            if (odpoved_2) {
+                odpv_split = odpoved_2.split(" ");
+                odpvRod = odpv_split[0];
+                odpvDruh = odpv_split[1];
+            } else {
+                odpvRod = "";
+                odpvDruh = "";
+            }
             let rostlina_spravne = vybraneRostliny[poradi][2].trim();
             let poleSpravnychDruhu = [];
             let poleSpravnychRodu = [];
@@ -86,7 +92,9 @@
                 spravneRod = spravne_split[0];
                 spravneDruh = spravne_split[1];
             }
-            if ((odpvRod == spravneRod && odpvDruh == spravneDruh) || (poleSpravnychRodu.some(rod => odpvRod.includes(rod)) && poleSpravnychDruhu.some(druh => odpvDruh.includes(druh)) ) )  {
+            if (odpvRod === "" && odpvDruh === "") {
+                document.getElementById('result2').innerHTML = "Wrong, it is: <em>" + rostlina_spravne;
+            } else if ((odpvRod == spravneRod && odpvDruh == spravneDruh) || (poleSpravnychRodu.some(rod => odpvRod.includes(rod)) && poleSpravnychDruhu.some(druh => odpvDruh.includes(druh)) ) )  {
                 document.getElementById('result2').innerHTML = "Correct!";
                 body++;
             } else if ((odpvRod == spravneRod && odpvDruh != spravneDruh) || (poleSpravnychRodu.some(rod => odpvRod.includes(rod)) && !poleSpravnychDruhu.some(druh => odpvDruh.includes(druh)) ) )  {
